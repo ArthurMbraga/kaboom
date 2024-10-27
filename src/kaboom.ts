@@ -5305,6 +5305,13 @@ export default (gopt: KaboomOpt = {}): KaboomCtx => {
 
 				obj.tilePos = p
 
+				obj.onDestroy(() => {
+					if(spatialMap)
+						removeFromSpatialMap(obj)
+					this.trigger("spatialMapChanged")
+					this.trigger("navigationMapInvalid")
+				})
+
 				if (spatialMap) {
 					insertIntoSpatialMap(obj)
 					this.trigger("spatial_map_changed")
